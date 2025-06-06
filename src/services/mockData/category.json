@@ -1,0 +1,38 @@
+[
+  {
+    "id": "1",
+    "name": "Work",
+    "color": "#3B82F6",
+    "icon": "Briefcase"
+  },
+  {
+    "id": "2",
+    "name": "Personal",
+    "color": "#10B981",
+    "icon": "User"
+  },
+  {
+    "id": "3",
+    "name": "Health",
+    "color": "#F59E0B",
+    "icon": "Heart"
+  },
+  {
+    "id": "4",
+    "name": "Learning",
+    "color": "#8B5CF6",
+    "icon": "BookOpen"
+  },
+  {
+    "id": "5",
+    "name": "Career",
+    "color": "#EF4444",
+    "icon": "TrendingUp"
+  },
+  {
+    "id": "6",
+    "name": "Hobbies",
+    "color": "#06B6D4",
+    "icon": "Palette"
+  }
+]

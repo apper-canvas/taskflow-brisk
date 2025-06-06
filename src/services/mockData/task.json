@@ -1,0 +1,167 @@
+[
+  {
+    "id": "1",
+    "title": "Complete project proposal",
+    "description": "Finish the Q4 project proposal and submit to management for review",
+    "category": "Work",
+    "priority": "high",
+    "dueDate": "2024-01-15T09:00:00.000Z",
+    "completed": false,
+    "createdAt": "2024-01-10T08:30:00.000Z",
+    "completedAt": null
+  },
+  {
+    "id": "2",
+    "title": "Buy groceries",
+    "description": "Get milk, bread, eggs, and vegetables for the week",
+    "category": "Personal",
+    "priority": "medium",
+    "dueDate": "2024-01-12T18:00:00.000Z",
+    "completed": true,
+    "createdAt": "2024-01-10T09:15:00.000Z",
+    "completedAt": "2024-01-11T17:30:00.000Z"
+  },
+  {
+    "id": "3",
+    "title": "Morning jog",
+    "description": "30-minute jog around the neighborhood",
+    "category": "Health",
+    "priority": "low",
+    "dueDate": "2024-01-13T07:00:00.000Z",
+    "completed": false,
+    "createdAt": "2024-01-10T10:00:00.000Z",
+    "completedAt": null
+  },
+  {
+    "id": "4",
+    "title": "Team meeting preparation",
+    "description": "Prepare slides and agenda for tomorrow's team meeting",
+    "category": "Work",
+    "priority": "high",
+    "dueDate": "2024-01-14T14:00:00.000Z",
+    "completed": false,
+    "createdAt": "2024-01-10T11:45:00.000Z",
+    "completedAt": null
+  },
+  {
+    "id": "5",
+    "title": "Call dentist",
+    "description": "Schedule appointment for teeth cleaning",
+    "category": "Health",
+    "priority": "medium",
+    "dueDate": null,
+    "completed": false,
+    "createdAt": "2024-01-10T12:30:00.000Z",
+    "completedAt": null
+  },
+  {
+    "id": "6",
+    "title": "Read chapter 5",
+    "description": "Complete reading assignment for the productivity course",
+    "category": "Learning",
+    "priority": "medium",
+    "dueDate": "2024-01-16T20:00:00.000Z",
+    "completed": false,
+    "createdAt": "2024-01-10T13:15:00.000Z",
+    "completedAt": null
+  },
+  {
+    "id": "7",
+    "title": "Update resume",
+    "description": "Add recent projects and skills to resume",
+    "category": "Career",
+    "priority": "low",
+    "dueDate": "2024-01-20T12:00:00.000Z",
+    "completed": false,
+    "createdAt": "2024-01-10T14:00:00.000Z",
+    "completedAt": null
+  },
+  {
+    "id": "8",
+    "title": "Plan weekend trip",
+    "description": "Research destinations and book accommodation",
+    "category": "Personal",
+    "priority": "low",
+    "dueDate": "2024-01-18T15:00:00.000Z",
+    "completed": false,
+    "createdAt": "2024-01-10T15:30:00.000Z",
+    "completedAt": null
+  },
+  {
+    "id": "9",
+    "title": "Code review",
+    "description": "Review pull requests from team members",
+    "category": "Work",
+    "priority": "medium",
+    "dueDate": "2024-01-13T16:00:00.000Z",
+    "completed": true,
+    "createdAt": "2024-01-10T16:15:00.000Z",
+    "completedAt": "2024-01-12T15:45:00.000Z"
+  },
+  {
+    "id": "10",
+    "title": "Practice guitar",
+    "description": "Practice new song for 30 minutes",
+    "category": "Hobbies",
+    "priority": "low",
+    "dueDate": null,
+    "completed": false,
+    "createdAt": "2024-01-10T17:00:00.000Z",
+    "completedAt": null
+  },
+  {
+    "id": "11",
+    "title": "Meal prep Sunday",
+    "description": "Prepare healthy meals for the upcoming week",
+    "category": "Health",
+    "priority": "medium",
+    "dueDate": "2024-01-14T10:00:00.000Z",
+    "completed": false,
+    "createdAt": "2024-01-10T18:30:00.000Z",
+    "completedAt": null
+  },
+  {
+    "id": "12",
+    "title": "Online course module",
+    "description": "Complete JavaScript fundamentals module 3",
+    "category": "Learning",
+    "priority": "high",
+    "dueDate": "2024-01-17T22:00:00.000Z",
+    "completed": false,
+    "createdAt": "2024-01-10T19:15:00.000Z",
+    "completedAt": null
+  },
+  {
+    "id": "13",
+    "title": "Clean apartment",
+    "description": "Deep clean living room and kitchen",
+    "category": "Personal",
+    "priority": "medium",
+    "dueDate": "2024-01-13T12:00:00.000Z",
+    "completed": false,
+    "createdAt": "2024-01-10T20:00:00.000Z",
+    "completedAt": null
+  },
+  {
+    "id": "14",
+    "title": "Network event",
+    "description": "Attend local tech networking event downtown",
+    "category": "Career",
+    "priority": "medium",
+    "dueDate": "2024-01-19T18:30:00.000Z",
+    "completed": false,
+    "createdAt": "2024-01-10T21:00:00.000Z",
+    "completedAt": null
+  },
+  {
+    "id": "15",
+    "title": "Photo editing",
+    "description": "Edit vacation photos from last month",
+    "category": "Hobbies",
+    "priority": "low",
+    "dueDate": null,
+    "completed": false,
+    "createdAt": "2024-01-10T22:30:00.000Z",
+    "completedAt": null
+  }
+]
