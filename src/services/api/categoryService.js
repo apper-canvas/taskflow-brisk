@@ -1,64 +1,169 @@
-import categoryData from '../mockData/category.json'
-
 class CategoryService {
   constructor() {
-    this.categories = [...categoryData]
-  }
-
-  async delay() {
-    return new Promise(resolve => setTimeout(resolve, 200 + Math.random() * 300))
+    const { ApperClient } = window.ApperSDK
+    this.apperClient = new ApperClient({
+      apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+      apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+    })
+    this.tableName = 'category'
   }
 
   async getAll() {
-    await this.delay()
-    return [...this.categories]
+    try {
+      const params = {
+        fields: ['Name', 'Tags', 'Owner', 'CreatedOn', 'CreatedBy', 'ModifiedOn', 'ModifiedBy', 'color', 'icon']
+      }
+      const response = await this.apperClient.fetchRecords(this.tableName, params)
+      
+      if (!response || !response.data || response.data.length === 0) {
+        return []
+      }
+      
+      // Map database fields to expected format
+      return response.data.map(category => ({
+        id: category.Id,
+        name: category.Name,
+        color: category.color || '#3B82F6',
+        icon: category.icon || 'Circle',
+        tags: category.Tags,
+        owner: category.Owner,
+        createdOn: category.CreatedOn,
+        createdBy: category.CreatedBy,
+        modifiedOn: category.ModifiedOn,
+        modifiedBy: category.ModifiedBy
+      }))
+    } catch (error) {
+      console.error("Error fetching categories:", error)
+      throw new Error('Failed to fetch categories')
+    }
   }
 
   async getById(id) {
-    await this.delay()
-    const category = this.categories.find(c => c.id === id)
-    if (!category) {
+    try {
+      const params = {
+        fields: ['Name', 'Tags', 'Owner', 'CreatedOn', 'CreatedBy', 'ModifiedOn', 'ModifiedBy', 'color', 'icon']
+      }
+      const response = await this.apperClient.getRecordById(this.tableName, id, params)
+      
+      if (!response || !response.data) {
+        throw new Error('Category not found')
+      }
+      
+      // Map database fields to expected format
+      const category = response.data
+      return {
+        id: category.Id,
+        name: category.Name,
+        color: category.color || '#3B82F6',
+        icon: category.icon || 'Circle',
+        tags: category.Tags,
+        owner: category.Owner,
+        createdOn: category.CreatedOn,
+        createdBy: category.CreatedBy,
+        modifiedOn: category.ModifiedOn,
+        modifiedBy: category.ModifiedBy
+      }
+    } catch (error) {
+      console.error(`Error fetching category with ID ${id}:`, error)
       throw new Error('Category not found')
     }
-    return { ...category }
   }
 
   async create(categoryData) {
-    await this.delay()
-    const newCategory = {
-      id: Date.now().toString(),
-      name: categoryData.name,
-      color: categoryData.color || '#3B82F6',
-      icon: categoryData.icon || 'Circle'
+    try {
+      // Only include Updateable fields in create operation
+      const params = {
+        records: [{
+          Name: categoryData.name,
+          Tags: categoryData.tags || '',
+          Owner: categoryData.owner || '',
+          color: categoryData.color || '#3B82F6',
+          icon: categoryData.icon || 'Circle'
+        }]
+      }
+      
+      const response = await this.apperClient.createRecord(this.tableName, params)
+      
+      if (response && response.success && response.results && response.results.length > 0) {
+        const createdCategory = response.results[0]
+        if (createdCategory.success && createdCategory.data) {
+          // Map database fields to expected format
+          const category = createdCategory.data
+          return {
+            id: category.Id,
+            name: category.Name,
+            color: category.color || '#3B82F6',
+            icon: category.icon || 'Circle',
+            tags: category.Tags,
+            owner: category.Owner
+          }
+        }
+      }
+      
+      throw new Error('Failed to create category')
+    } catch (error) {
+      console.error("Error creating category:", error)
+      throw new Error('Failed to create category')
     }
-    this.categories.push(newCategory)
-    return { ...newCategory }
   }
 
   async update(id, updateData) {
-    await this.delay()
-    const index = this.categories.findIndex(c => c.id === id)
-    if (index === -1) {
-      throw new Error('Category not found')
+    try {
+      // Only include Updateable fields in update operation
+      const params = {
+        records: [{
+          Id: id,
+          Name: updateData.name,
+          Tags: updateData.tags || '',
+          Owner: updateData.owner || '',
+          color: updateData.color || '#3B82F6',
+          icon: updateData.icon || 'Circle'
+        }]
+      }
+      
+      const response = await this.apperClient.updateRecord(this.tableName, params)
+      
+      if (response && response.success && response.results && response.results.length > 0) {
+        const updatedCategory = response.results[0]
+        if (updatedCategory.success && updatedCategory.data) {
+          // Map database fields to expected format
+          const category = updatedCategory.data
+          return {
+            id: category.Id,
+            name: category.Name,
+            color: category.color || '#3B82F6',
+            icon: category.icon || 'Circle',
+            tags: category.Tags,
+            owner: category.Owner
+          }
+        }
+      }
+      
+      throw new Error('Failed to update category')
+    } catch (error) {
+      console.error("Error updating category:", error)
+      throw new Error('Failed to update category')
     }
-    
-    this.categories[index] = {
-      ...this.categories[index],
-      ...updateData,
-      id // Ensure ID doesn't change
-    }
-    return { ...this.categories[index] }
   }
 
   async delete(id) {
-    await this.delay()
-    const index = this.categories.findIndex(c => c.id === id)
-    if (index === -1) {
-      throw new Error('Category not found')
+    try {
+      const params = {
+        RecordIds: [id]
+      }
+      
+      const response = await this.apperClient.deleteRecord(this.tableName, params)
+      
+      if (response && response.success && response.results && response.results.length > 0) {
+        const deletedCategory = response.results[0]
+        return deletedCategory.success
+      }
+      
+      return false
+    } catch (error) {
+      console.error("Error deleting category:", error)
+      throw new Error('Failed to delete category')
     }
-    
-    this.categories.splice(index, 1)
-    return true
   }
 }
 
