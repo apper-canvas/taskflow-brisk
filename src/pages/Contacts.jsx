@@ -141,11 +141,12 @@ function Contacts() {
     )
   }
 
-  // Filter contacts based on search
+// Filter contacts based on search
   const filteredContacts = contacts.filter(contact => {
     const searchLower = searchTerm.toLowerCase()
+    const fullName = `${contact.firstName || ''} ${contact.lastName || ''}`.trim()
     return (
-      contact.fullName.toLowerCase().includes(searchLower) ||
+      fullName.toLowerCase().includes(searchLower) ||
       contact.email.toLowerCase().includes(searchLower) ||
       (contact.phone && contact.phone.toLowerCase().includes(searchLower))
     )
@@ -251,7 +252,7 @@ function Contacts() {
                 animate={{ opacity: 1, y: 0 }}
                 className="bg-white dark:bg-surface-800 rounded-2xl shadow-card p-6 hover:shadow-lg transition-shadow"
               >
-                <div className="flex items-start justify-between mb-4">
+<div className="flex items-start justify-between mb-4">
                   <div className="flex items-start space-x-3">
                     <input
                       type="checkbox"
@@ -261,7 +262,7 @@ function Contacts() {
                     />
                     <div className="flex-1">
                       <h3 className="text-lg font-semibold text-surface-900 dark:text-surface-50 mb-1">
-                        {contact.fullName}
+                        {`${contact.firstName || ''} ${contact.lastName || ''}`.trim() || 'Unnamed Contact'}
                       </h3>
                       <p className="text-surface-600 dark:text-surface-400 text-sm">
                         {contact.email}
@@ -436,8 +437,8 @@ function Contacts() {
                     Delete Contact
                   </h3>
                   
-                  <p className="text-surface-600 dark:text-surface-400 mb-6">
-                    Are you sure you want to delete <strong>{contactToDelete.fullName}</strong>? 
+<p className="text-surface-600 dark:text-surface-400 mb-6">
+                    Are you sure you want to delete <strong>{`${contactToDelete.firstName || ''} ${contactToDelete.lastName || ''}`.trim() || 'this contact'}</strong>? 
                     This action cannot be undone.
                   </p>
                   
