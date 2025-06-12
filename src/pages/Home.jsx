@@ -1,10 +1,8 @@
 import { useState, useEffect, useContext } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import MainFeature from '../components/MainFeature'
-import ApperIcon from '../components/ApperIcon'
-import { AuthContext } from '../App'
-
+import ApperIcon from '@/components/ApperIcon'
+import { AuthContext } from '@/App'
 function Home() {
   const [darkMode, setDarkMode] = useState(false)
   const { isAuthenticated, user } = useSelector((state) => state.user)
@@ -85,17 +83,82 @@ function Home() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-surface-900 dark:text-surface-50 mb-2">
-            Organize Your Tasks
+<main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="text-center py-16">
+          <div className="w-32 h-32 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-3xl flex items-center justify-center mx-auto mb-8">
+            <ApperIcon name="CheckSquare" className="w-16 h-16 text-primary" />
+          </div>
+          
+          <h2 className="text-4xl font-bold text-surface-900 dark:text-surface-50 mb-4">
+            Welcome to TaskFlow
           </h2>
-          <p className="text-surface-600 dark:text-surface-400">
-            Stay productive and manage your tasks efficiently with TaskFlow
+          <p className="text-xl text-surface-600 dark:text-surface-400 mb-8 max-w-2xl mx-auto">
+            Stay productive and manage your tasks efficiently. Organize, prioritize, and track your progress with our intuitive task management system.
           </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Link
+              to="/tasks"
+              className="px-8 py-4 bg-primary hover:bg-primary-dark text-white rounded-xl font-semibold text-lg transition-all shadow-lg hover:shadow-xl flex items-center space-x-3"
+            >
+              <ApperIcon name="ArrowRight" size={24} />
+              <span>Get Started</span>
+            </Link>
+            
+            <div className="flex items-center space-x-6 text-surface-600 dark:text-surface-400">
+              <div className="flex items-center space-x-2">
+                <ApperIcon name="CheckCircle" size={20} className="text-green-500" />
+                <span>Track Progress</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <ApperIcon name="Filter" size={20} className="text-blue-500" />
+                <span>Smart Filtering</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <ApperIcon name="Bell" size={20} className="text-orange-500" />
+                <span>Due Date Alerts</span>
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div className="bg-white dark:bg-surface-800 rounded-2xl shadow-card p-6 text-center">
+              <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <ApperIcon name="Plus" className="w-8 h-8 text-primary" />
+              </div>
+              <h3 className="text-lg font-semibold text-surface-900 dark:text-surface-50 mb-2">
+                Create Tasks
+              </h3>
+              <p className="text-surface-600 dark:text-surface-400 text-sm">
+                Easily add new tasks with titles, descriptions, priorities, and due dates
+              </p>
+            </div>
+            
+            <div className="bg-white dark:bg-surface-800 rounded-2xl shadow-card p-6 text-center">
+              <div className="w-16 h-16 bg-secondary/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <ApperIcon name="Grid3x3" className="w-8 h-8 text-secondary" />
+              </div>
+              <h3 className="text-lg font-semibold text-surface-900 dark:text-surface-50 mb-2">
+                Organize by Category
+              </h3>
+              <p className="text-surface-600 dark:text-surface-400 text-sm">
+                Group your tasks into categories for better organization and focus
+              </p>
+            </div>
+            
+            <div className="bg-white dark:bg-surface-800 rounded-2xl shadow-card p-6 text-center">
+              <div className="w-16 h-16 bg-green-500/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                <ApperIcon name="TrendingUp" className="w-8 h-8 text-green-500" />
+              </div>
+              <h3 className="text-lg font-semibold text-surface-900 dark:text-surface-50 mb-2">
+                Track Progress
+              </h3>
+              <p className="text-surface-600 dark:text-surface-400 text-sm">
+                Monitor your productivity with completion rates and progress tracking
+              </p>
+            </div>
+          </div>
         </div>
-        
-        <MainFeature />
       </main>
     </div>
   )
