@@ -1,3 +1,5 @@
-// Central services export
-export { default as taskService } from './api/taskService'
-export { default as categoryService } from './api/categoryService'
+import taskService from './api/taskService'
+import categoryService from './api/categoryService'
+import contactService from './api/contactService'
+
+export { taskService, categoryService, contactService }

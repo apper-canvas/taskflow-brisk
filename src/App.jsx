@@ -10,9 +10,9 @@ import ErrorPage from './pages/ErrorPage'
 import Home from './pages/Home'
 import Tasks from './pages/Tasks'
 import NotFound from './pages/NotFound'
-// Create auth context
-export const AuthContext = createContext(null)
+import Contacts from './pages/Contacts'
 
+const AuthContext = createContext()
 function App() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -83,7 +83,7 @@ function App() {
           }
           dispatch(clearUser())
         }
-      },
+},
       onError: function (error) {
         console.error("Authentication failed:", error)
       }
@@ -119,12 +119,13 @@ function App() {
 
 return (
     <AuthContext.Provider value={authMethods}>
-<Routes>
+      <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/callback" element={<Callback />} />
         <Route path="/error" element={<ErrorPage />} />
-<Route path="/" element={<Home />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/contacts" element={<Contacts />} />
         <Route path="/tasks" element={<Tasks />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -5,10 +5,12 @@ import { format, isToday, isPast, parseISO } from 'date-fns'
 import ApperIcon from './ApperIcon'
 import taskService from '../services/api/taskService'
 import categoryService from '../services/api/categoryService'
+import contactService from '../services/api/contactService'
 
 const MainFeature = () => {
-  const [tasks, setTasks] = useState([])
+const [tasks, setTasks] = useState([])
   const [categories, setCategories] = useState([])
+  const [contacts, setContacts] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [selectedCategory, setSelectedCategory] = useState('all')
@@ -17,27 +19,30 @@ const MainFeature = () => {
   const [sortBy, setSortBy] = useState('dueDate')
   const [showTaskForm, setShowTaskForm] = useState(false)
   const [editingTask, setEditingTask] = useState(null)
-  const [newTask, setNewTask] = useState({
+const [newTask, setNewTask] = useState({
     title: '',
     description: '',
     category: '',
     priority: 'medium',
-    dueDate: ''
+    dueDate: '',
+    assignedContact: ''
   })
 
   useEffect(() => {
     loadData()
   }, [])
 
-  const loadData = async () => {
+const loadData = async () => {
     setLoading(true)
     try {
-      const [tasksData, categoriesData] = await Promise.all([
+      const [tasksData, categoriesData, contactsData] = await Promise.all([
         taskService.getAll(),
-        categoryService.getAll()
+        categoryService.getAll(),
+        contactService.getAll()
       ])
       setTasks(tasksData || [])
       setCategories(categoriesData || [])
+      setContacts(contactsData || [])
     } catch (err) {
       setError(err.message)
       toast.error('Failed to load data')
@@ -115,21 +120,21 @@ const MainFeature = () => {
 
   const startEdit = (task) => {
     setEditingTask(task)
-    setNewTask({
+setNewTask({
       title: task.title,
       description: task.description || '',
       category: task.category || '',
       priority: task.priority,
-      dueDate: task.dueDate ? format(parseISO(task.dueDate), 'yyyy-MM-dd') : ''
+      dueDate: task.dueDate ? format(parseISO(task.dueDate), 'yyyy-MM-dd') : '',
+      assignedContact: task.assignedContact || ''
     })
-  }
+}
 
   const cancelEdit = () => {
     setEditingTask(null)
-    setNewTask({ title: '', description: '', category: '', priority: 'medium', dueDate: '' })
     setShowTaskForm(false)
+    setNewTask({ title: '', description: '', category: '', priority: 'medium', dueDate: '', assignedContact: '' })
   }
-
   const filteredTasks = tasks.filter(task => {
     const matchesCategory = selectedCategory === 'all' || task.category === selectedCategory
     const matchesSearch = task.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -405,28 +410,45 @@ const MainFeature = () => {
                           </option>
                         ))}
                       </select>
-                    </div>
+</div>
                     
+                    <div>
+                      <select
+                        value={newTask.assignedContact}
+                        onChange={(e) => setNewTask(prev => ({ ...prev, assignedContact: e.target.value }))}
+                        className="w-full px-4 py-3 border border-surface-200 dark:border-surface-600 rounded-xl bg-surface-50 dark:bg-surface-700 text-surface-900 dark:text-surface-50 focus:outline-none focus:ring-2 focus:ring-primary"
+                      >
+                        <option value="">Assign to contact</option>
+                        {contacts.map(contact => (
+                          <option key={contact.id} value={contact.fullName}>
+                            {contact.fullName}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                  
+                  <div className="grid grid-cols-2 gap-4">
                     <div>
                       <select
                         value={newTask.priority}
                         onChange={(e) => setNewTask(prev => ({ ...prev, priority: e.target.value }))}
                         className="w-full px-4 py-3 border border-surface-200 dark:border-surface-600 rounded-xl bg-surface-50 dark:bg-surface-700 text-surface-900 dark:text-surface-50 focus:outline-none focus:ring-2 focus:ring-primary"
                       >
-                        <option value="low">Low Priority</option>
+<option value="low">Low Priority</option>
                         <option value="medium">Medium Priority</option>
                         <option value="high">High Priority</option>
                       </select>
                     </div>
-                  </div>
                   
-                  <div>
-                    <input
-                      type="date"
-                      value={newTask.dueDate}
-                      onChange={(e) => setNewTask(prev => ({ ...prev, dueDate: e.target.value }))}
-                      className="w-full px-4 py-3 border border-surface-200 dark:border-surface-600 rounded-xl bg-surface-50 dark:bg-surface-700 text-surface-900 dark:text-surface-50 focus:outline-none focus:ring-2 focus:ring-primary"
-                    />
+                    <div>
+                      <input
+                        type="date"
+                        value={newTask.dueDate}
+                        onChange={(e) => setNewTask(prev => ({ ...prev, dueDate: e.target.value }))}
+                        className="w-full px-4 py-3 border border-surface-200 dark:border-surface-600 rounded-xl bg-surface-50 dark:bg-surface-700 text-surface-900 dark:text-surface-50 focus:outline-none focus:ring-2 focus:ring-primary"
+                      />
+                    </div>
                   </div>
                   
                   <div className="flex space-x-3 pt-4">
